@@ -27,7 +27,7 @@ function fetchCollectionFromAPI(collectionSymbol){
     const options = {
         method: 'GET',
         url: 'https://api-mainnet.magiceden.dev/v2/ord/btc/tokens?collectionSymbol=omb',
-        headers: {accept: 'application/json', Authorization: 'Bearer 50501856-572d-4d61-84d7-df5dd83259cc'}
+        headers: {accept: 'application/json', Authorization: 'Bearer ...'}
         
     };
 
