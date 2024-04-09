@@ -22,40 +22,44 @@ async function retrieveCollection(sub){
     
 }
 
-function fetchCollectionFromAPI(collectionSymbol){
+async function fetchCollectionFromAPI(collectionSymbol){
+    // storeCollectionFromAPI - potential function name
     
-    const options = {
-        method: 'GET',
-        url: 'https://api-mainnet.magiceden.dev/v2/ord/btc/tokens?collectionSymbol=omb',
-        headers: {accept: 'application/json', Authorization: 'Bearer ...'}
+    let url = `${process.env.MAGIC_EDEN_BASE_URL}/ord/btc/tokens?collectionSymbol=${collectionSymbol}`
+    let headers = {accept: 'application/json', Authorization: `Bearer ${process.env.MAGIC_EDEN_API_TOKEN}`}
+    let dbRows = []
+    
+    try{
+        let {data} =  await axios.get(url, {headers})
         
-    };
-
-    axios.request(options).then(function (response) {
+        dbRows = data.tokens.map( tokenObj =>{
+            
+            return{
+                inscription_number:tokenObj.inscriptionNumber,
+                image_url: tokenObj.contentPreviewURI,
+                satoshi_price: tokenObj.listedPrice,
+                token_name: tokenObj.displayName,
+                collection_symbol: tokenObj.collectionSymbol,
+                collection_name:tokenObj.collection.name
+            }
+        })
         
-        console.log(response);
-        return response
+        const bulkInsertSQLScript = dbRows.reduce((sql, item, index) => {
+            
+            const values = Object.values(item).map(value => typeof value === 'string' ? `'${value}'` : value).join(', ');
+            const row = `(${values})`;
+            return index === 0 ? `INSERT INTO Collections (${Object.keys(item).join(', ')}) VALUES ${row}` : `${sql},\n${row}`;
+        }, '');
         
-    })
-    .catch(function (error) {
-        console.error(error);
         
-    });
+        let [error, response] = await query(bulkInsertSQLScript)
+        if(error) console.log('ERROR Fetching Employee - ', error)
+        
+    }catch(error){
+        console.error('MAGIC EDEN API CALL NOT WORKING - ', error)
+    }
     
 }
 
 
 module.exports = { retrieveCollection, fetchCollectionFromAPI }
-
-
-// axios.get('https://api.github.com/user', {
-//   headers: {
-//     'Authorization': `token ${access_token}`
-//   }
-// })
-// .then((res) => {
-//   console.log(res.data)
-// })
-// .catch((error) => {
-//   console.error(error)
-// })

@@ -18,36 +18,9 @@ export const handler = async (event) => {
     }
     
     return respond(body, 200)
+  } 
   
-    
-  } else if(event.queryStringParameters.fetchCollection !== undefined){
-    
-    let res = CollectionsProcessor.fetchCollectionFromAPI(event.queryStringParameters.fetchCollection);
-    console.log('INDEX RES =>> ',res)
-    let body = {
-      res
-    }
-    
-    return respond(body, 200)
-    
-  }
   
+  else if(event.queryStringParameters.fetchCollection !== undefined) await CollectionsProcessor.fetchCollectionFromAPI(event.queryStringParameters.fetchCollection);
 }
   
-  
- 
-
-// {
-//   "resource":"/collections",
-//   "path":"/cats",
-//   "queryStringParameters":{
-//       "fetchCollection":"quantum_cats"
-//   },
-//   "multiValueQueryStringParameters":{
-//       "fetchEmployees":[
-//         "true"
-//       ]
-//   },
-//   "body":null,
-//   "isBase64Encoded":false
-// }
