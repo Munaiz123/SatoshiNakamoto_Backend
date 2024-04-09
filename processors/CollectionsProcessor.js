@@ -21,18 +21,18 @@ async function retrieveCollection(sub){
     }
     
 }
-
 async function fetchCollectionFromAPI(collectionSymbol){
     // storeCollectionFromAPI - potential function name
     
     let url = `${process.env.MAGIC_EDEN_BASE_URL}/ord/btc/tokens?collectionSymbol=${collectionSymbol}`
     let headers = {accept: 'application/json', Authorization: `Bearer ${process.env.MAGIC_EDEN_API_TOKEN}`}
-    let dbRows = []
+    
     
     try{
         let {data} =  await axios.get(url, {headers})
         
-        dbRows = data.tokens.map( tokenObj =>{
+        // can probably refactor better since they're both array methods
+        let bulkInsertSQLScript = data.tokens.map( tokenObj =>{
             
             return{
                 inscription_number:tokenObj.inscriptionNumber,
@@ -43,8 +43,7 @@ async function fetchCollectionFromAPI(collectionSymbol){
                 collection_name:tokenObj.collection.name
             }
         })
-        
-        const bulkInsertSQLScript = dbRows.reduce((sql, item, index) => {
+        .reduce((sql, item, index) => { //chatGPT helped here
             
             const values = Object.values(item).map(value => typeof value === 'string' ? `'${value}'` : value).join(', ');
             const row = `(${values})`;
