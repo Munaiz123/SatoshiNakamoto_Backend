@@ -9,7 +9,7 @@ async function retrieveCollection(collectionSymbol){
     let [error, response] = await query(queryString)
 
     if(error) console.log('ERROR Fetching Employee - ', error)
-    else if(response.command === 'SELECT') response.rows
+    else if(response.command === 'SELECT') return response.rows
     
 }
 async function fetchCollectionFromAPI(collectionSymbol){
