@@ -1,11 +1,6 @@
  
 const headers = {'Access-Control-Allow-Origin': '*','Content-Type': 'application/json', 'Access-Control-Allow-Methods':'*'}
 const multiValueHeaders = { "Access-Control-Allow-Headers": ['Content-Type','X-Amz-Date','Auth,X-Api-Key','X-Amz-Security-Token']}
-const apiHeaders = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Authorization":""
-};
 
 
 const respond = (body, statusCode) =>({
@@ -19,7 +14,6 @@ const respond = (body, statusCode) =>({
   
   
 module.exports = {
-    respond,
-    apiHeaders
+    respond
 }
   

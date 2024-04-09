@@ -1,6 +1,5 @@
 module.exports = {
-    fetchCollection: (collectionName) => (`SELECT * FROM COLLECTIONS WHERE collection_symbol='${collectionName}'`),
-
+    fetchCollectionBySymbol: (collectionSymbol) => (`SELECT * FROM COLLECTIONS WHERE collection_symbol='${collectionSymbol}'`),
 }
 
 

@@ -5,22 +5,13 @@ import CollectionsProcessor from"./processors/CollectionsProcessor.js"
 
 export const handler = async (event) => {
   
-  if(event.httpMethod === "GET" ){
-    let {collectionName} = event.pathParameters
-    
-    
-    let dbResponse = await CollectionsProcessor.retrieveCollection(collectionName);
-    let msg =  `Hello, ${collectionName} !!`
-    
-    let body = {
-      dbResponse,
-      msg
-    }
-    
-    return respond(body, 200)
-  } 
+  if(event.httpMethod === "GET"){
+    let symbol = event.pathParameters.collectionSymbol
+    return respond(await CollectionsProcessor.retrieveCollection(symbol),200)
+  }
   
-  
-  else if(event.queryStringParameters.fetchCollection !== undefined) await CollectionsProcessor.fetchCollectionFromAPI(event.queryStringParameters.fetchCollection);
+  else if(event.queryStringParameters.fetchCollection !== undefined){
+    await CollectionsProcessor.fetchCollectionFromAPI(event.queryStringParameters.fetchCollection)
+  }
 }
   

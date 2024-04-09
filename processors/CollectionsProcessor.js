@@ -1,24 +1,15 @@
 const query = require('/opt/executeQuery'); // takes a single string
 const sql = require('../sql/CollectionsSQL.js');
-const {apiHeaders} = require("utils")
 const axios = require('axios')
 
-async function retrieveCollection(sub){
+async function retrieveCollection(collectionSymbol){    
     
-    
-    let queryString = sql.fetchCollection('cats')
+    let queryString = sql.fetchCollectionBySymbol(collectionSymbol)
     
     let [error, response] = await query(queryString)
 
     if(error) console.log('ERROR Fetching Employee - ', error)
-
-     else if(response.command === 'SELECT') {
-        
-        console.log("Finished fetching collection =>> ", response.rows)
-        return response.rows
-
-        
-    }
+    else if(response.command === 'SELECT') response.rows
     
 }
 async function fetchCollectionFromAPI(collectionSymbol){
@@ -38,6 +29,7 @@ async function fetchCollectionFromAPI(collectionSymbol){
                 inscription_number:tokenObj.inscriptionNumber,
                 image_url: tokenObj.contentPreviewURI,
                 satoshi_price: tokenObj.listedPrice,
+                btc_price: tokenObj.listedPrice/ 100000000,
                 token_name: tokenObj.displayName,
                 collection_symbol: tokenObj.collectionSymbol,
                 collection_name:tokenObj.collection.name
@@ -52,7 +44,7 @@ async function fetchCollectionFromAPI(collectionSymbol){
         
         
         let [error, response] = await query(bulkInsertSQLScript)
-        if(error) console.log('ERROR Fetching Employee - ', error)
+        if(error) console.error('ERROR Fetching Employee - ', error)
         
     }catch(error){
         console.error('MAGIC EDEN API CALL NOT WORKING - ', error)
