@@ -12,6 +12,8 @@ async function retrieveCollection(collectionSymbol){
     else if(response.command === 'SELECT') return response.rows
     
 }
+
+
 async function fetchCollectionFromAPI(collectionSymbol){
     // storeCollectionFromAPI - potential function name
     
@@ -27,7 +29,7 @@ async function fetchCollectionFromAPI(collectionSymbol){
             
             return{
                 inscription_number:tokenObj.inscriptionNumber,
-                image_url: tokenObj.contentPreviewURI,
+                image_url: tokenObj.contentURI,
                 satoshi_price: tokenObj.listedPrice,
                 btc_price: tokenObj.listedPrice/ 100000000,
                 token_name: tokenObj.displayName,
