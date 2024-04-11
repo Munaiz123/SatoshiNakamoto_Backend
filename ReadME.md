@@ -71,6 +71,12 @@ The lambda has two main functionalities that is differentiated by two different 
 ```
 
 #### 2. Database Seeding Event (Single Invocation) 
+In order to properly retrieve data on the UI, you need to seed the database with the NFT collection data by running this this test event from within the aws lambda console.
+
+You can indicate which NFT collection the lambda should retrieve from the Magic Eden API by changing the ```event.queryStringParameters.fetchCollection``` property within the JSON and running the test event and this would seed the database with the forementioned collection.
+
+You only need to do this once for each collection you want to fetch details for. Keep in mind that running this event multiple times for the same NFT collection will result in duplicate NFT collection data. It will **NOT** override the already existing data for the collection but instead will "add it to the list".
+
 ```json
 {
   "resource": "/collections",
