@@ -1,6 +1,21 @@
-Talk about: backend architecture - vpc, subnets?, NAT, igw, db, apigateway, and lambda
+# SatoshiNakamoto_Backend (The Interface)
 
-Talk about: Test events -> used to  fetch collection from Magic Eden and save in db as one time occurance. 
+## Introduction 
 
-Talk about: project folder structure
 
+## Project Folder Structure
+
+## AWS Technologies(Services) Used
+
+
+## Backend Architecture
+vpc, subnets?, NAT, igw, db, apigateway, and lambda
+### API Gateway
+### RDS PostgreSQL
+
+
+## AWS Lambda Test Events
+### Fetching NFT Collection Data from Magic Eden (w/ API Key)
+### Developing & Testing Lambda in AWS
+
+## Lambda Layers (Dependencies)
