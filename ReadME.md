@@ -9,7 +9,7 @@ And ```sql/CollectionsSQL.js``` houses the SQL queries that is sent to a databas
 
 ## AWS Cloud Architecture
 
-As mentioned, the backend is on the cloud(AWS) and it utilizes of the follwing AWS technologies and components:
+As mentioned, the backend is on the cloud(AWS) and it utilizes of the follwing AWS technologies:
 
 #### AWS Technologies:
 - API Gateway - exposes the backend to the UI to make services calls and retrieve NFT payload 
@@ -17,13 +17,7 @@ As mentioned, the backend is on the cloud(AWS) and it utilizes of the follwing A
 - RDS PostgreSQL - database that hold the "stale" NFT collection data
 - CloudWatch - runtime logs for lambda
 
-#### Networking Components
-- VPC
-- Subnets
-- NAT Gateway
-- Internet Gateway
-
-
+![Alt Text](./public/diagram2.png)
 
 
 
