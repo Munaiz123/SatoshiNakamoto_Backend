@@ -25,16 +25,12 @@ As mentioned, the backend is on the cloud(AWS) and it utilizes of the follwing A
 AWS API Gatway exposes the backend to the UI through an GET API request: ```https://lyq1fqdqn9.execute-api.us-east-1.amazonaws.com/dev/collections/{collectionName}```. 
 
 Currently only the following values for ```{collectionName}``` will yield a response to the UI:
-- pizza-ninjas *
-- quantum_cats
-- omb
-- ordinal_geese
-- tiny_vikings *
+- ```/omb```
+- ```/quantum_cats```
+- ```/ordinal_geese```
+- ```/pizza-ninjas``` (*directly update URL in the UI*)
+- ```/tiny_vikings``` (*directly update URL in the UI*)
   
-* = will need to directly update url in the UI
-  
-
-
 
 ### RDS PostgreSQL
 The following sql script was used to create the only table in the database:
@@ -53,8 +49,42 @@ CREATE TABLE Collections (
 ```
 
 ### AWS Lambda 
-#### Test Events
-##### Fetching NFT Collection Data from Magic Eden (w/ API Key)
-##### Developing & Testing Lambda in AWS
+
+The lambda has two main functionalities that is differentiated by two different events. The sample test events are listed below
+
+#### 1. UI Triggered Event (Multiple Invocations) 
+
+```json
+{
+  "resource": "/collections/{collectionSymbol}",
+  "path": "/collections/omb",
+  "httpMethod": "GET",
+  "headers": null,
+  "multiValueHeaders": null,
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": {
+    "collectionSymbol": "quantum_cats"
+  },
+  "stageVariables": null
+}
+```
+
+#### 2. Database Seeding Event (Single Invocation) 
+```json
+{
+  "resource": "/collections",
+  "path": "/cats",
+  "queryStringParameters": {
+    "fetchCollection": "tiny_vikings"
+  },
+  "body": null,
+  "isBase64Encoded": false
+}
+```
 
 ### Lambda Layers (Dependencies)
+- holds node modules
+- hold db connection code (abstracts)
+
+## Reflections
