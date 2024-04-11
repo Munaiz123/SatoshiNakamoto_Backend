@@ -1,13 +1,15 @@
 # SatoshiNakamoto_Backend (The Interface)
 
-Although the backend is entirely on the cloud, the actual project folder structure tries to implent the MVC design pattern in its project folder(albiet a little contrived for this coding challenged). 
+Although the backend for The Interface is entirely on the cloud, it tries to implent the MVC design pattern in its project folder (albiet a bit contrived for this coding challenge). 
 
-The entry point for the backend is ```index.mjs```, which routes requests to the appropriate functions within ```processors/CollectionsProcessor.js``` and ```sql/CollectionsSQL.js``` houses the SQL queries that is sent to a database lambda layer that abstracts the common db connection code. More on lambda layers below.
+The entry point for the backend is ```index.mjs```, which routes requests to the appropriate functions within ```processors/CollectionsProcessor.js```.
+
+And ```sql/CollectionsSQL.js``` houses the SQL queries that is sent to a database lambda layer that abstracts the common db connection code. More on lambda layers below.
 
 
 ## AWS Cloud Architecture
 
-As mentioned, the backend is hosted on AWS and it takes advantage of the follwing AWS technologies and components:
+As mentioned, the backend is on the cloud(AWS) and it utilizes of the follwing AWS technologies and components:
 
 #### AWS Technologies:
 - API Gateway - exposes the backend to the UI to make services calls and retrieve NFT payload 
