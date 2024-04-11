@@ -84,7 +84,11 @@ The lambda has two main functionalities that is differentiated by two different 
 ```
 
 ### Lambda Layers (Dependencies)
-- holds node modules
-- hold db connection code (abstracts)
 
-## Reflections
+Lambda Layers in AWS allow you to centrally manage common code and dependencies across multiple AWS Lambda functions.
+
+[This](https://github.com/Munaiz123/db_lambda_layer_EasyAudit/tree/master/nodejs) repo, holds the database lambda layer that abstracts the common code accross multiple lambdas to connect with the database. 
+
+Similarly, another lambda layer(*not listed*) abstracts the common node dependencies (node_modules folder) such as axios.  
+
+
